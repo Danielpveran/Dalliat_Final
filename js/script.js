@@ -3,32 +3,29 @@ const elementos1 = document.getElementById('lista-1');
 const lista = document.querySelector('#lista-carrito tbody');
 const vaciarCarritoBtn = document.getElementById('vaciar-carrito');
 
-// Cargar listeners
 function cargarEventListeners() {
     elementos1.addEventListener('click', comprarElemento);
     carrito.addEventListener('click', eliminarElemento);
     vaciarCarritoBtn.addEventListener('click', vaciarCarrito);
-
-    // Animación para el botón de "Vaciar carrito"
-    vaciarCarritoBtn.addEventListener('click', () => {
-        vaciarCarritoBtn.classList.add('animated');
-        setTimeout(() => {
-            vaciarCarritoBtn.classList.remove('animated');
-        }, 500); // Duración de la animación
-    });
-
-    // Animación para cada botón de "Agregar al carrito"
-    document.querySelectorAll('.agregar-carrito').forEach(boton => {
-        boton.addEventListener('click', () => {
-            boton.classList.add('animated');
-            setTimeout(() => {
-                boton.classList.remove('animated');
-            }, 300); // Duración de la animación
-        });
-    });
 }
 
-// Llamar a la función para cargar los event listeners
+// Añadir animaciones a los botones
+document.querySelectorAll('.agregar-carrito').forEach(boton => {
+    boton.addEventListener('click', () => {
+        boton.classList.add('animated');
+        setTimeout(() => {
+            boton.classList.remove('animated');
+        }, 300);
+    });
+});
+
+vaciarCarritoBtn.addEventListener('click', () => {
+    vaciarCarritoBtn.classList.add('animated');
+    setTimeout(() => {
+        vaciarCarritoBtn.classList.remove('animated');
+    }, 500);
+});
+
 cargarEventListeners();
 
 function comprarElemento(e) {
