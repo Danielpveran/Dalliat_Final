@@ -3,16 +3,29 @@ const elementos1 = document.getElementById('lista-1');
 const lista = document.querySelector('#lista-carrito tbody');
 const vaciarCarritoBtn = document.getElementById('vaciar-carrito');
 
-// Inicializa AutoAnimate en el contenedor del carrito
-document.addEventListener('DOMContentLoaded', () => {
-    autoAnimate(lista);
-});
-
-// Cargar Event Listeners
+// Cargar listeners
 function cargarEventListeners() {
     elementos1.addEventListener('click', comprarElemento);
     carrito.addEventListener('click', eliminarElemento);
     vaciarCarritoBtn.addEventListener('click', vaciarCarrito);
+
+    // Animación para el botón de "Vaciar carrito"
+    vaciarCarritoBtn.addEventListener('click', () => {
+        vaciarCarritoBtn.classList.add('animated');
+        setTimeout(() => {
+            vaciarCarritoBtn.classList.remove('animated');
+        }, 500); // Duración de la animación
+    });
+
+    // Animación para cada botón de "Agregar al carrito"
+    document.querySelectorAll('.agregar-carrito').forEach(boton => {
+        boton.addEventListener('click', () => {
+            boton.classList.add('animated');
+            setTimeout(() => {
+                boton.classList.remove('animated');
+            }, 300); // Duración de la animación
+        });
+    });
 }
 
 // Llamar a la función para cargar los event listeners
@@ -20,9 +33,8 @@ cargarEventListeners();
 
 function comprarElemento(e) {
     e.preventDefault();
-    // Verificar si el clic fue en un botón de "Agregar al carrito"
     if (e.target.classList.contains('agregar-carrito')) {
-        const elemento = e.target.closest('.product'); // Selecciona el contenedor de producto
+        const elemento = e.target.closest('.product');
         leerDatosElemento(elemento);
     }
 }
@@ -38,7 +50,6 @@ function leerDatosElemento(elemento) {
 }
 
 function insertarCarrito(elemento) {
-    // Crea una fila con los datos del producto
     const row = document.createElement('tr');
     row.innerHTML = `
         <td>
@@ -54,22 +65,17 @@ function insertarCarrito(elemento) {
             <a href="#" class="borrar" data-id="${elemento.id}">X</a>
         </td>
     `;
-
-    // Agrega la fila al carrito y AutoAnimate se encarga de la animación
     lista.appendChild(row);
 }
 
 function eliminarElemento(e) {
     e.preventDefault();
-
     if (e.target.classList.contains('borrar')) {
-        // Elimina el elemento del DOM y AutoAnimate manejará la animación
         e.target.parentElement.parentElement.remove();
     }
 }
 
 function vaciarCarrito() {
-    // Elimina todos los elementos del carrito con animación
     while (lista.firstChild) {
         lista.removeChild(lista.firstChild);
     }
