@@ -1,10 +1,14 @@
 const carrito = document.getElementById('carrito');
 const elementos1 = document.getElementById('lista-1');
-
 const lista = document.querySelector('#lista-carrito tbody');
 const vaciarCarritoBtn = document.getElementById('vaciar-carrito');
 
-// Asegurarse de que la función se declare correctamente
+// Inicializa AutoAnimate en el contenedor del carrito
+document.addEventListener('DOMContentLoaded', () => {
+    autoAnimate(lista);
+});
+
+// Cargar Event Listeners
 function cargarEventListeners() {
     elementos1.addEventListener('click', comprarElemento);
     carrito.addEventListener('click', eliminarElemento);
@@ -18,7 +22,7 @@ function comprarElemento(e) {
     e.preventDefault();
     // Verificar si el clic fue en un botón de "Agregar al carrito"
     if (e.target.classList.contains('agregar-carrito')) {
-        const elemento = e.target.closest('.product'); // Cambiado para seleccionar el elemento correcto
+        const elemento = e.target.closest('.product'); // Selecciona el contenedor de producto
         leerDatosElemento(elemento);
     }
 }
@@ -26,18 +30,19 @@ function comprarElemento(e) {
 function leerDatosElemento(elemento) {
     const infoElemento = {
         imagen: elemento.querySelector('img').src,
-        titulo: elemento.querySelector('h3').textContent, // Corregido a querySelector y texto
-        precio: elemento.querySelector('.precio').textContent, // Corregido a querySelector y texto
-        id: elemento.querySelector('a').getAttribute('data-id') // Corregido a querySelector
+        titulo: elemento.querySelector('h3').textContent,
+        precio: elemento.querySelector('.precio').textContent,
+        id: elemento.querySelector('a').getAttribute('data-id')
     };
     insertarCarrito(infoElemento);
 }
 
 function insertarCarrito(elemento) {
+    // Crea una fila con los datos del producto
     const row = document.createElement('tr');
     row.innerHTML = `
         <td>
-            <img src="${elemento.imagen}" width=100 />
+            <img src="${elemento.imagen}" width="100" />
         </td>
         <td>
             ${elemento.titulo}
@@ -46,25 +51,25 @@ function insertarCarrito(elemento) {
             ${elemento.precio}
         </td>
         <td>
-            <a href="#" class="borrar" data-id="${elemento.id}">X</a> <!-- Corregido href -->
+            <a href="#" class="borrar" data-id="${elemento.id}">X</a>
         </td>
     `;
 
+    // Agrega la fila al carrito y AutoAnimate se encarga de la animación
     lista.appendChild(row);
 }
 
 function eliminarElemento(e) {
     e.preventDefault();
-    let elemento, elementoId;
 
     if (e.target.classList.contains('borrar')) {
+        // Elimina el elemento del DOM y AutoAnimate manejará la animación
         e.target.parentElement.parentElement.remove();
-        elementoId = e.target.getAttribute('data-id'); // Cambiado para obtener el ID correcto
-        // Aquí podrías manejar el ID si necesitas hacer algo con él
     }
 }
 
 function vaciarCarrito() {
+    // Elimina todos los elementos del carrito con animación
     while (lista.firstChild) {
         lista.removeChild(lista.firstChild);
     }
