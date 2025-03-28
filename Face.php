@@ -282,9 +282,35 @@
                             <li><a href="#">lorem</a></li>
                     </ul>
                 </div>
+                <div class="link">
+                    <h3>Lorem</h3>
+                    <ul>
+                            <li><a href="#">lorem</a></li>
+                            <li><a href="#">lorem</a></li>
+                            <li><a href="#">lorem</a></li>
+                            <li><a href="#">lorem</a></li>
+                    </ul>
+                </div>
         </div>
 
     </footer>
     <script src="js/script.js"></script>
+</body>
+</html>
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bienvenido - Dalliat</title>
+    <a href="php/cerrar_sesion.php">Cerrar sesion</a>
+</head>
+<body>
+    <h1>Dalliat</h1>
 </body>
 </html>
